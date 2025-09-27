@@ -176,7 +176,7 @@ def create_csv_backup(input_file, output_dir):
 
 def main():
     """Main conversion function"""
-    input_dir = "file"
+    input_dir = "data"
     output_dir = "file_windows"
 
     print("Starting Excel to Windows conversion...")
