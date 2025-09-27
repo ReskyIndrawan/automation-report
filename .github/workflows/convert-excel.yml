@@ -28,13 +28,13 @@ jobs:
         run: python scripts/convert_excel_windows.py
 
       - name: Upload converted files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: windows-excel-files
           path: file_windows/
 
       - name: Upload CSV backups
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: csv-backups
           path: file_windows/*.csv
