@@ -1,0 +1,65 @@
+name: Build Windows Executable
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-exe:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas openpyxl pyinstaller
+
+      - name: Build executable
+        run: python scripts/build_windows_exe.py
+
+      - name: Upload executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-executable
+          path: |
+            dist/ReportAutomation.exe
+            install.bat
+
+      - name: Create release
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ github.run_number }}-windows
+          name: Report Automation Windows Executable v${{ github.run_number }}
+          body: |
+            Windows executable version of Report Automation application.
+
+            ## Files:
+            - ReportAutomation.exe: Standalone Windows application
+            - install.bat: Installation script
+
+            ## How to use:
+            1. Download ReportAutomation.exe
+            2. Run the executable directly
+            3. Or run install.bat to copy to desktop
+
+            Generated from commit: ${{ github.sha }}
+          files: |
+            dist/ReportAutomation.exe
+            install.bat
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

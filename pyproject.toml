@@ -35,6 +35,7 @@ dev = [
 [project.scripts]
 report-gui = "scripts.run_gui:main"
 report-cli = "scripts.run_cli:main"
+report-gui-windows = "scripts.run_gui_windows:main"
 
 [build-system]
 requires = ["hatchling"]
