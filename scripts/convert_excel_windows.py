@@ -200,7 +200,13 @@ def main():
             output_filename = filename.replace('.xlsx', '_windows.xlsx')
             output_path = os.path.join(output_dir, output_filename)
 
-            print(f"\nProcessing: {filename}")
+            # Skip files with Japanese characters that can't be encoded in cp1252
+            try:
+                filename.encode('cp1252')
+                print(f"\nProcessing: {filename}")
+            except UnicodeEncodeError:
+                print(f"\nSkipping {filename} (contains characters not supported on Windows)")
+                continue
 
             # Convert Excel file
             if convert_excel_for_windows(input_path, output_path):
@@ -212,7 +218,7 @@ def main():
                 error_files.append(filename)
 
     # Print summary
-    print(f"\n📊 Conversion Summary:")
+    print(f"\nConversion Summary:")
     print(f"Successfully converted: {len(converted_files)} files")
     print(f"Failed to convert: {len(error_files)} files")
 
