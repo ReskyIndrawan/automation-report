@@ -29,11 +29,18 @@ def convert_excel_for_windows(input_file, output_file):
 
         # Copy each sheet with Windows-compatible formatting
         for sheet_name in wb.sheetnames:
-            print(f"Processing sheet: {sheet_name}")
+            try:
+                sheet_name.encode('cp1252')
+                print(f"Processing sheet: {sheet_name}")
+                sheet_name_display = sheet_name
+            except UnicodeEncodeError:
+                print(f"Processing sheet (sheet with Japanese characters)")
+                # Use a generic name for the sheet
+                sheet_name_display = f"Sheet_{wb.sheetnames.index(sheet_name) + 1}"
             sheet = wb[sheet_name]
 
             # Create new sheet in Windows workbook
-            new_sheet = wb_windows.create_sheet(sheet_name)
+            new_sheet = wb_windows.create_sheet(sheet_name_display)
 
             # Copy merged cells first
             for merge_range in sheet.merged_cells.ranges:
@@ -123,7 +130,7 @@ def convert_excel_for_windows(input_file, output_file):
             if sheet.page_setup:
                 new_sheet.page_setup = sheet.page_setup
 
-            print(f"Successfully copied sheet: {sheet_name}")
+            print(f"Successfully copied sheet: {sheet_name_display}")
 
         # Set the active sheet to match the original
         if wb.active:
@@ -148,6 +155,13 @@ def create_csv_backup(input_file, output_dir):
 
         for sheet_name in wb.sheetnames:
             sheet = wb[sheet_name]
+            # Handle sheet names with Japanese characters
+            try:
+                sheet_name.encode('cp1252')
+                safe_sheet_name = sheet_name
+            except UnicodeEncodeError:
+                safe_sheet_name = f"Sheet_{wb.sheetnames.index(sheet_name) + 1}"
+
             data = []
 
             # Extract data from sheet
@@ -162,7 +176,7 @@ def create_csv_backup(input_file, output_dir):
                     df = pd.DataFrame(data)
 
                 # Save as CSV with UTF-8 BOM for Excel compatibility
-                csv_filename = f"{os.path.splitext(os.path.basename(input_file))[0]}_{sheet_name}.csv"
+                csv_filename = f"{os.path.splitext(os.path.basename(input_file))[0]}_{safe_sheet_name}.csv"
                 csv_path = os.path.join(output_dir, csv_filename)
 
                 df.to_csv(csv_path, index=False, encoding='utf-8-sig')
@@ -209,12 +223,19 @@ def main():
                 continue
 
             # Convert Excel file
-            if convert_excel_for_windows(input_path, output_path):
-                converted_files.append(output_filename)
+            try:
+                if convert_excel_for_windows(input_path, output_path):
+                    converted_files.append(output_filename)
 
-                # Create CSV backup
-                create_csv_backup(input_path, output_dir)
-            else:
+                    # Create CSV backup
+                    try:
+                        create_csv_backup(input_path, output_dir)
+                    except Exception as e:
+                        print(f"Warning: Could not create CSV backup: {e}")
+                else:
+                    error_files.append(filename)
+            except Exception as e:
+                print(f"Error processing file: {e}")
                 error_files.append(filename)
 
     # Print summary
@@ -232,7 +253,8 @@ def main():
         for filename in error_files:
             print(f"   - {filename}")
 
-    return 0 if len(error_files) == 0 else 1
+    # Return success if at least one file was converted
+    return 0 if len(converted_files) > 0 else 1
 
 if __name__ == "__main__":
     sys.exit(main())
