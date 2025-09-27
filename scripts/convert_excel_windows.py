@@ -13,7 +13,7 @@ from openpyxl.utils import get_column_letter
 
 def convert_excel_for_windows(input_file, output_file):
     """Convert Excel file to Windows-compatible format with enhanced compatibility"""
-    print(f"Converting {input_file} to Windows format...")
+    print(f"Converting file to Windows format...")
 
     try:
         # Load the original workbook
@@ -205,7 +205,7 @@ def main():
                 filename.encode('cp1252')
                 print(f"\nProcessing: {filename}")
             except UnicodeEncodeError:
-                print(f"\nSkipping {filename} (contains characters not supported on Windows)")
+                print(f"\nSkipping file (contains characters not supported on Windows)")
                 continue
 
             # Convert Excel file
