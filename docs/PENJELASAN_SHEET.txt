@@ -1,0 +1,243 @@
+===============================================================================
+                PENJELASAN LAPORAN BULANAN - OTOMATISASI REPORT
+================================================================================
+
+Tanggal Pembuatan: 26 September 2025
+Versi: 2.0
+
+Aplikasi ini menghasilkan laporan bulanan dengan 7 sheet yang berbeda.
+Berikut adalah penjelasan detail untuk masing-masing sheet:
+
+===============================================================================
+1. 月次サマリー (RINGKASAN BULANAN)
+===============================================================================
+
+TUJUAN:
+Memberikan gambaran umum performa kerja selama satu bulan penuh.
+
+ISI SHEET:
+- 総作業時間 (Total Waktu Kerja): Total jam kerja yang dihabiskan selama bulan
+- 総作業件数 (Total Pekerjaan): Jumlah total pekerjaan yang diselesaikan
+- 平均作業時間 (Rata-rata Waktu Kerja): Waktu rata-rata per pekerjaan
+- 従業員数 (Jumlah Karyawan): Jumlah karyawan yang bekerja dalam bulan tersebut
+- 総不良件数 (Total Cacat): Jumlah total produk cacat ditemukan
+- 不良率 (Tingkat Cacat): Persentase produk cacat terhadap total produksi
+
+MANFAAT:
+- Memberikan overview cepat performa bulanan
+- Memantau efisiensi operasional secara keseluruhan
+- Identifikasi masalah kualitas produk
+
+===============================================================================
+2. 従業員別実績 (PERFORMA PER KARYAWAN)
+===============================================================================
+
+TUJUAN:
+Menganalisis performa individual setiap karyawan.
+
+ISI SHEET:
+- 従業員番号 (Nomor Karyawan): ID unik setiap karyawan
+- 従業員名 (Nama Karyawan): Nama lengkap karyawan
+- 総作業時間 (Total Waktu Kerja): Total jam kerja per karyawan
+- 作業件数 (Jumlah Pekerjaan): Jumlah pekerjaan yang diselesaikan
+- 平均時間 (Waktu Rata-rata): Rata-rata waktu per pekerjaan per karyawan
+- 不良件数 (Jumlah Cacat): Jumlah cacat yang ditemukan per karyawan
+- 不良率 (Tingkat Cacat): Persentase cacat per karyawan
+
+MANFAAT:
+- Evaluasi performa karyawan individual
+- Identifikasi karyawan dengan performa terbaik/terburuk
+- Target pelatihan untuk karyawan yang membutuhkan peningkatan
+- Dasar untuk sistem insentif
+
+===============================================================================
+3. 作業種類別分析 (ANALISIS BERDASARKAN JENIS PEKERJAAN)
+===============================================================================
+
+TUJUAN:
+Menganalisis distribusi pekerjaan berdasarkan jenis pekerjaan.
+
+ISI SHEET:
+- 作業種類 (Jenis Pekerjaan): Kategori utama pekerjaan
+- 作業内容 (Detail Pekerjaan): Deskripsi spesifik pekerjaan
+- 総時間 (Total Waktu): Total waktu yang dihabiskan per jenis pekerjaan
+- 件数 (Jumlah): Banyaknya pekerjaan per jenis
+- 平均時間 (Waktu Rata-rata): Rata-rata waktu per jenis pekerjaan
+- 割合 (Persentase): Kontribusi masing-masing jenis terhadap total
+
+MANFAAT:
+- Identifikasi pekerjaan yang paling banyak menghabiskan waktu
+- Optimasi alokasi sumber daya berdasarkan jenis pekerjaan
+- Perencanaan kapasitas produksi
+- Identifikasi proses yang perlu efisiensi
+
+===============================================================================
+4. 検査サマリー (RINGKASAN INSPEKSI)
+===============================================================================
+
+TUJUAN:
+Memberikan ringkasan khusus aktivitas inspeksi produk.
+
+ISI SHEET:
+- 総検査時間 (Total Waktu Inspeksi): Total waktu yang dihabiskan untuk inspeksi
+- 検査件数 (Jumlah Inspeksi): Total produk yang diperiksa
+- 平均検査時間 (Rata-rata Waktu Inspeksi): Waktu rata-rata per inspeksi
+- 検査員数 (Jumlah Inspector): Jumlah karyawan yang melakukan inspeksi
+- 不良発見件数 (Jumlah Cacat Ditemukan): Total cacat yang terdeteksi
+- 不良発見率 (Tingkat Temuan Cacat): Persentase keberhasilan deteksi cacat
+
+MANFAAT:
+- Memantau efektivitas proses inspeksi
+- Evaluasi kinerja tim inspeksi
+- Identifikasi area yang perlu peningkatan kualitas
+- Perencanaan kebutuhan sumber daya inspeksi
+
+===============================================================================
+5. 日別サマリー (RINGKASAN HARIAN)
+===============================================================================
+
+TUJUAN:
+Melacak performa harian selama satu bulan.
+
+ISI SHEET:
+- 日付 (Tanggal): Tanggal pelaksanaan pekerjaan
+- 総作業時間 (Total Waktu Kerja): Total jam kerja per hari
+- 作業件数 (Jumlah Pekerjaan): Jumlah pekerjaan selesai per hari
+- 従業員数 (Jumlah Karyawan): Jumlah karyawan aktif per hari
+- 不良件数 (Jumlah Cacat): Jumlah cacat ditemukan per hari
+
+MANFAAT:
+- Identifikasi pola produktivitas harian
+- Deteksi hari dengan performa abnormal
+- Perencanaan penjadwalan kerja
+- Analisis tren performa waktu
+
+===============================================================================
+6. N5比較 (PERBANDINGAN STANDAR N5 VS AKTUAL)
+===============================================================================
+
+TUJUAN:
+Membandingkan waktu kerja aktual dengan standar N5 yang telah ditetapkan.
+
+ISI SHEET:
+- 日月 (Tanggal): Tanggal pelaksanaan (format tanggal saja)
+- OP (Operator): Nama operator yang mengerjakan
+- 作業内容（№を記入） (Nama Produk): Kode atau nama produk
+- 分N5 (Menit N5): Waktu standar N5 untuk produk tersebut
+- 分N1 (Menit Aktual): Waktu aktual yang dihabiskan
+- 差分 (Selisih): Perbedaan antara aktual dan standar (2 desimal)
+
+FITUR KHUSUS:
+- Filter otomatis untuk N5 > 0 (produk dengan standar waktu)
+- Format tanggal tanpa jam (hari/bulan/tahun)
+- Perhitungan selisih dengan 2 angka desimal
+- Pengelompokan data duplikat dengan penjumlahan waktu
+
+STATISTIK TAMBAHAN:
+- 平均分N5 (Rata-rata N5): Waktu standar rata-rata
+- 平均分N1 (Rata-rata Aktual): Waktu aktual rata-rata
+- 平均差分 (Rata-rata Selisih): Selisih rata-rata
+- 合計分N5 (Total N5): Total waktu standar
+- 合計分N1 (Total Aktual): Total waktu aktual
+- 合計差分 (Total Selisih): Total selisih waktu
+
+MANFAAT:
+- Evaluasi efisiensi kerja terhadap standar
+- Identifikasi produk/operator yang bekerja di bawah/atas standar
+- Dasar untuk perbaikan proses kerja
+- Perhitungan penghematan/pemborosan waktu
+
+===============================================================================
+7. 報告サマリー (RINGKASAN LAPORAN)
+===============================================================================
+
+TUJUAN:
+Menyajikan ringkasan laporan dalam format standar perusahaan.
+
+ISI SHEET:
+Format standar sesuai spesifikasi:
+"{tahun}年{bulan}月のN＝5→N＝1にした"
+"検査品目数→{jumlah}個の品番(重複あり)"
+"検査時間　N5(基準値)だったら{total_n5}分かかっていた。"
+"N1にしたことで{total_n1}分で済んだ({selisih}分短縮できた)"
+"({total_n1}×100)÷{total_n5}＝{efisiensi}"
+"100-{efisiensi}＝{pengurangan}％削減"
+
+MANFAAT:
+- Format standar untuk pelaporan manajemen
+- Perhitungan otomatis persentase efisiensi
+- Menunjukkan kontribusi terhadap penghematan waktu
+- Dokumentasi formal untuk arsip perusahaan
+
+===============================================================================
+PROSES PEMROSESAN DATA
+===============================================================================
+
+1. FILTERING DATA:
+   - Mengambil data dari file 9.xlsx (data aktual)
+   - Filter pekerjaan: hanya "検査作業(受入れ・工程内・出荷前)"
+   - Filter waktu kerja > 0 (hapus data dengan waktu nol)
+   - Filter berdasarkan bulan dan tahun yang dipilih
+
+2. PENGELMPOKAN DATA:
+   - Kelompokkan data duplikat berdasarkan:
+     * Tanggal (日付)
+     * Nama Karyawan (社員名)
+     * Nomor Produk (品目番号)
+   - Jumlahkan waktu kerja (作業時間) untuk data duplikat
+   - Ambil data pertama untuk kolom lainnya
+
+3. PERBANDINGAN STANDAR:
+   - Ambil data standar N5 dari file 検査工数.xlsx (sheet N5基準)
+   - Cocokkan nomor produk dengan data aktual
+   - Hitung selisih antara waktu aktual dan standar
+   - Filter produk yang memiliki standar N5 > 0
+
+4. GENERASI LAPORAN:
+   - Buat 7 sheet Excel dengan format yang konsisten
+   - Terapkan formatting otomatis (bold header, warna background)
+   - Auto-fit kolom untuk readability
+   - Hitung statistik dan total otomatis
+
+===============================================================================
+FITUR OTOMATISASI
+===============================================================================
+
+- Auto-formatting: Header bold dengan background abu-abu
+- Auto-fit columns: Menyesuaikan lebar kolom secara otomatis
+- Decimal precision: 2 angka di belakang koma untuk perhitungan
+- Date formatting: Format tanggal tanpa informasi jam
+- Data validation: Filter data tidak valid secara otomatis
+- Error handling: Menangani error dengan pesan yang jelas
+- Progress tracking: Log informasi proses berjalan
+
+===============================================================================
+PENGgunaan APLIKASI
+===============================================================================
+
+1. GUI MODE (gui_app.py):
+   - Pilih file input melalui browser
+   - Preview data sebelum processing
+   - Generate report dengan tombol
+   - Progress indicator dan status
+
+2. COMMAND LINE MODE (simple_generate.py):
+   - Jalankan via terminal
+   - Output detail statistik
+   - Cocok untuk otomasi batch
+
+3. SAFE RUNNER (run_gui.py):
+   - Fallback jika GUI error
+   - Deteksi otomatis mode yang available
+
+===============================================================================
+CONTACT & SUPPORT
+===============================================================================
+Aplikasi ini dikembangkan untuk otomatisasi laporan bulanan.
+Untuk pertanyaan atau masalah, silakan hubungi developer.
+
+Dikembangkan dengan Python + Pandas + OpenPyXL + Tkinter
+Database: Excel files dengan struktur yang telah ditetapkan
+Output: Multi-sheet Excel file dengan analisis komprehensif
+
+================================================================================

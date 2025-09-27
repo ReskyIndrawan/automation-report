@@ -1,0 +1,10 @@
+６月のN＝5→N＝1にした
+検査品目数→432個の品番(重複あり)
+検査時間　N5(2024年10月までの実績)だったら5139分かかっていた。
+N1にしたことで4518分で済んだ(621分短縮できた)
+
+(4518×100)÷5139＝87.92
+100-87.92＝12.08％削減
+
+
+saya maunya laporan bentuknya seperti diatas bulannya dinamis sesuai bulan datanya.

@@ -1,0 +1,41 @@
+Teknologi: Python + Tkinter + Pandas + OpenPyXL
+Fungsi Utama:
+
+Membaca dua file Excel (standar dan data aktual)
+Mencocokkan produk berdasarkan nama
+Membuat sheet baru dengan laporan otomatis
+Menghitung total jam dan membuat summary report
+
+Fitur Utama
+File Selection: Browse dan pilih dua file Excel
+Data Preview: Lihat struktur dan preview data sebelum processing
+Product Matching: Otomatis mencocokkan nama produk antara kedua file
+Filtering: Filter data berdasarkan nilai inspeksi = 1
+Report Generation: Buat laporan dengan perhitungan total jam
+Export: Simpan hasil ke file Excel baru
+
+Keterangan file
+pada project saya sudah menyiapkan dua buah sample file yang akan selalu saya gunakan di kemudian hari 
+file pertama adalah 検査工数.xlsx dimana didalam filenya terdapat satu sheet penting yaitu N5基準 ini adalah kolom yang menjadi standar jam yang dimulai dari tabel R2 sampai R3045 buat ini menjadi dinamis sehingga jika ada data baru nantinya dia bisa menyesuakan jumlah cellnya.
+kedua yang penting dari file ini adalah kolom 品番 dimana nantinya dari kolom ini terdapat nama yang akan disesuaikan dengan report aktualnya, jadi cukup nama barang yang ada disini yang disortir nantinya di file aktualnya unutk dibandingkan jamnya.
+
+contoh hasil yang saya inginkan adalah ada di sheet ７月 diamana formatnya adalah
+			
+jadi data yang kamu ambil dari aktual data nantinya adalah :
+日月 : tanggal
+OP : nama operator
+作業内容（№を記入） : nama product
+分N5	: jam dari data N5基準
+分N1  : jam dari data aktual
+
+file kedua ada bernama 9.xlsx di derictory f
+ile dimana disini saya sebut data faktualnya dimana dari data ini akan diekstrak dan dicari datanya.
+data yang dicari meliputi yang saya tuliskan dibawah:
+日付 : ini yang akan masuk ke tabel 日月 nantinya
+社員名 : ini yang akan masuk ke tabel OP nantinya
+品目番号 : yang akan masuk ke tabel 作業内容（№を記入）
+作業時間 : yang akan masuk ke table 分N1
+
+tapi sebelum mengambil datanya kita harus melakukan filter pada kolom 作業内容 dan hanya pada komom berisi 検査作業(受入れ・工程内・出荷前) yang diambil  作業時間 , 品目番号 ,社員名, 日付
+
+setelha semua datanya diperoleh buatkan file Excel baru yang berisi data tersebeut yang bisa kita isikan nama filenya sebelum dibuatkan dan kalau bisa ada previewnya terlebih dahulu agar saya mengetahui apakah datanya sudah benar atau belum.
