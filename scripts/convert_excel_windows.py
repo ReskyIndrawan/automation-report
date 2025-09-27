@@ -13,7 +13,7 @@ from openpyxl.utils import get_column_letter
 
 def convert_excel_for_windows(input_file, output_file):
     """Convert Excel file to Windows-compatible format with enhanced compatibility"""
-    print(f"🔄 Converting {input_file} to Windows format...")
+    print(f"Converting {input_file} to Windows format...")
 
     try:
         # Load the original workbook
@@ -29,7 +29,7 @@ def convert_excel_for_windows(input_file, output_file):
 
         # Copy each sheet with Windows-compatible formatting
         for sheet_name in wb.sheetnames:
-            print(f"📋 Processing sheet: {sheet_name}")
+            print(f"Processing sheet: {sheet_name}")
             sheet = wb[sheet_name]
 
             # Create new sheet in Windows workbook
@@ -166,7 +166,7 @@ def create_csv_backup(input_file, output_dir):
                 csv_path = os.path.join(output_dir, csv_filename)
 
                 df.to_csv(csv_path, index=False, encoding='utf-8-sig')
-                print(f"📄 Created CSV backup: {csv_path}")
+                print(f"Created CSV backup: {csv_path}")
 
         return True
 
@@ -200,7 +200,7 @@ def main():
             output_filename = filename.replace('.xlsx', '_windows.xlsx')
             output_path = os.path.join(output_dir, output_filename)
 
-            print(f"\n📄 Processing: {filename}")
+            print(f"\nProcessing: {filename}")
 
             # Convert Excel file
             if convert_excel_for_windows(input_path, output_path):
