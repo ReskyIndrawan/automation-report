@@ -123,7 +123,7 @@ def convert_excel_for_windows(input_file, output_file):
             if sheet.page_setup:
                 new_sheet.page_setup = sheet.page_setup
 
-            print(f"✅ Successfully copied sheet: {sheet_name}")
+            print(f"Successfully copied sheet: {sheet_name}")
 
         # Set the active sheet to match the original
         if wb.active:
@@ -133,12 +133,12 @@ def convert_excel_for_windows(input_file, output_file):
 
         # Save the Windows-compatible file
         wb_windows.save(output_file)
-        print(f"✅ Successfully converted to {output_file}")
+        print(f"Successfully converted to {output_file}")
 
         return True
 
     except Exception as e:
-        print(f"❌ Error converting {input_file}: {e}")
+        print(f"Error converting {input_file}: {e}")
         return False
 
 def create_csv_backup(input_file, output_dir):
@@ -171,7 +171,7 @@ def create_csv_backup(input_file, output_dir):
         return True
 
     except Exception as e:
-        print(f"❌ Error creating CSV backup for {input_file}: {e}")
+        print(f"Error creating CSV backup for {input_file}: {e}")
         return False
 
 def main():
@@ -179,16 +179,16 @@ def main():
     input_dir = "file"
     output_dir = "file_windows"
 
-    print("🚀 Starting Excel to Windows conversion...")
+    print("Starting Excel to Windows conversion...")
 
     # Check input directory
     if not os.path.exists(input_dir):
-        print(f"❌ Input directory '{input_dir}' not found")
+        print(f"Input directory '{input_dir}' not found")
         return 1
 
     # Create output directory
     os.makedirs(output_dir, exist_ok=True)
-    print(f"📁 Output directory: {output_dir}")
+    print(f"Output directory: {output_dir}")
 
     # Convert all Excel files
     converted_files = []
@@ -213,16 +213,16 @@ def main():
 
     # Print summary
     print(f"\n📊 Conversion Summary:")
-    print(f"✅ Successfully converted: {len(converted_files)} files")
-    print(f"❌ Failed to convert: {len(error_files)} files")
+    print(f"Successfully converted: {len(converted_files)} files")
+    print(f"Failed to convert: {len(error_files)} files")
 
     if converted_files:
-        print(f"\n📁 Converted files available in: {output_dir}")
+        print(f"\nConverted files available in: {output_dir}")
         for filename in converted_files:
             print(f"   - {filename}")
 
     if error_files:
-        print(f"\n❌ Files with errors:")
+        print(f"\nFiles with errors:")
         for filename in error_files:
             print(f"   - {filename}")
 
