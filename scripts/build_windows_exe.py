@@ -27,9 +27,11 @@ def install_pyinstaller():
             print(f"Failed to install PyInstaller: {e}")
             return False
 
-def build_executable():
+def build_executable(debug=False):
     """Build the Windows executable"""
     print("Building Windows executable...")
+    if debug:
+        print("DEBUG MODE: Building with console window for debugging")
 
     # Create build directory
     build_dir = Path("build")
@@ -59,19 +61,29 @@ def build_executable():
         "--clean",
         "--log-level=INFO",
         "--name=ReportAutomation",
-        "--windowed",  # No console window for GUI app
+        "--windowed" if not debug else "",  # Console window if debug mode
         "--onefile",   # Single executable file
         "--add-data=src;src",
         "--paths=src",
         "--hidden-import=pandas",
         "--hidden-import=openpyxl",
+        "--hidden-import=openpyxl.utils",
+        "--hidden-import=openpyxl.utils.dataframe",
+        "--hidden-import=openpyxl.styles",
+        "--hidden-import=openpyxl.styles.font",
+        "--hidden-import=openpyxl.styles.colors",
+        "--hidden-import=openpyxl.styles.borders",
+        "--hidden-import=openpyxl.styles.alignment",
+        "--hidden-import=openpyxl.styles.patternfill",
         "--hidden-import=tkinter",
         "--hidden-import=tkinter.filedialog",
         "--hidden-import=tkinter.messagebox",
         "--hidden-import=tkinter.ttk",
+        "--hidden-import=tkinter.font",
         "--hidden-import=src.report_automation",
         "--hidden-import=src.report_automation.core",
         "--hidden-import=src.report_automation.gui",
+        "--collect-all=openpyxl",
         "--collect-all=src.report_automation",
         "--icon=NONE",  # You can add an icon file later
         str(main_file)
@@ -142,6 +154,9 @@ def main():
     print("Report Automation - Windows Executable Builder")
     print("=" * 50)
 
+    # Parse command line arguments
+    debug_mode = "--debug" in sys.argv
+
     # Change to project root directory
     project_root = Path(__file__).parent.parent
     os.chdir(project_root)
@@ -158,7 +173,7 @@ def main():
         return 1
 
     # Build executable
-    if not build_executable():
+    if not build_executable(debug=debug_mode):
         print("Failed to build executable")
         return 1
 
@@ -167,7 +182,14 @@ def main():
 
     print("\nBuild completed successfully!")
     print("Executable location: dist/ReportAutomation.exe")
+    if debug_mode:
+        print("DEBUG version created with console window")
     print("Run install.bat to copy to desktop")
+
+    if debug_mode:
+        print("\nTo run in debug mode:")
+        print("  dist/ReportAutomation.exe")
+        print("  (This will show console output for debugging)")
 
     return 0
 
