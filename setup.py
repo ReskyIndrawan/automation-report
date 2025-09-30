@@ -33,7 +33,7 @@ setup(
     install_requires=[
         "pandas>=1.3.0",
         "openpyxl>=3.0.0",
-        "tkinter-utils>=1.0.0",
+        # tkinter is built-in with Python, no external package needed
     ],
     extras_require={
         "dev": [

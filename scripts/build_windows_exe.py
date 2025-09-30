@@ -51,10 +51,16 @@ def build_executable():
         "--add-data=data;data",
         "--hidden-import=pandas",
         "--hidden-import=openpyxl",
+        "--hidden-import=tkinter",
+        "--hidden-import=tkinter.filedialog",
+        "--hidden-import=tkinter.messagebox",
+        "--hidden-import=tkinter.ttk",
         "--hidden-import=src.report_automation",
+        "--hidden-import=src.report_automation.core",
+        "--hidden-import=src.report_automation.gui",
         "--collect-all=src.report_automation",
         "--icon=NONE",  # You can add an icon file later
-        "scripts/run_gui.py"
+        "src/report_automation/gui/gui_app.py"
     ]
 
     try:
@@ -91,6 +97,11 @@ def main():
     """Main build function"""
     print("Report Automation - Windows Executable Builder")
     print("=" * 50)
+
+    # Change to project root directory
+    project_root = Path(__file__).parent.parent
+    os.chdir(project_root)
+    print(f"Working directory: {os.getcwd()}")
 
     # Check if we're on Windows
     if sys.platform != "win32":
