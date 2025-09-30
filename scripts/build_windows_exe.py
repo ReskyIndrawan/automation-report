@@ -41,14 +41,28 @@ def build_executable():
     if dist_dir.exists():
         shutil.rmtree(dist_dir)
 
-    # PyInstaller command
+    # Check if main source file exists
+    main_file = Path("src/report_automation/gui/gui_app.py")
+    if not main_file.exists():
+        print(f"Error: Main source file not found: {main_file}")
+        return False
+
+    # Check if src directory exists
+    src_dir = Path("src")
+    if not src_dir.exists():
+        print(f"Error: Source directory not found: {src_dir}")
+        return False
+
+    # PyInstaller command with better error handling
     cmd = [
         "pyinstaller",
+        "--clean",
+        "--log-level=INFO",
         "--name=ReportAutomation",
         "--windowed",  # No console window for GUI app
         "--onefile",   # Single executable file
         "--add-data=src;src",
-        "--add-data=data;data",
+        "--paths=src",
         "--hidden-import=pandas",
         "--hidden-import=openpyxl",
         "--hidden-import=tkinter",
@@ -60,17 +74,47 @@ def build_executable():
         "--hidden-import=src.report_automation.gui",
         "--collect-all=src.report_automation",
         "--icon=NONE",  # You can add an icon file later
-        "src/report_automation/gui/gui_app.py"
+        str(main_file)
     ]
 
     try:
+        print(f"Running command: {' '.join(cmd)}")
         result = subprocess.run(cmd, check=True, capture_output=True, text=True)
         print("Build successful!")
-        print(result.stdout)
+        print("STDOUT:", result.stdout)
+        if result.stderr:
+            print("STDERR:", result.stderr)
+
+        # Verify executable was created
+        exe_file = Path("dist/ReportAutomation.exe")
+        if exe_file.exists():
+            print(f"Executable created successfully: {exe_file}")
+            print(f"File size: {exe_file.stat().st_size} bytes")
+        else:
+            print("Error: Executable was not created in dist directory")
+            return False
+
         return True
     except subprocess.CalledProcessError as e:
-        print(f"Build failed: {e}")
-        print(e.stderr)
+        print(f"Build failed with return code: {e.returncode}")
+        print("STDOUT:", e.stdout)
+        print("STDERR:", e.stderr)
+
+        # Check for PyInstaller logs
+        log_files = list(Path(".").glob("*.log"))
+        if log_files:
+            print("PyInstaller log files:")
+            for log_file in log_files:
+                print(f"  {log_file}:")
+                try:
+                    with open(log_file, 'r', encoding='utf-8') as f:
+                        print(f.read())
+                except Exception as log_e:
+                    print(f"    Could not read log file: {log_e}")
+
+        return False
+    except Exception as e:
+        print(f"Unexpected error during build: {e}")
         return False
 
 def create_installer():
