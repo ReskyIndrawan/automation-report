@@ -150,3 +150,5 @@ data/temp/
 logs/
 
 # Others
+data
+docs
